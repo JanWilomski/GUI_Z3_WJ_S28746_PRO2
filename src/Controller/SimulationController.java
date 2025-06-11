@@ -85,7 +85,7 @@ public class SimulationController {
             model.getElevator().setDirection(model.getElevator().getDirection().equals(ElevatorModel.Direction.UP) ? ElevatorModel.Direction.DOWN : ElevatorModel.Direction.UP);
             targetFloor = findTargetInDirection(currentFloor, targets, model.getElevator().getDirection());
         }
-        model.notifyObservers();
+
         return targetFloor;
     }
     private int findTargetInDirection(int currentFloor, Set<Integer> targets, ElevatorModel.Direction direction){
@@ -103,7 +103,7 @@ public class SimulationController {
                 }
             }
         }
-        model.notifyObservers();
+
         return closestTarget;
 
 

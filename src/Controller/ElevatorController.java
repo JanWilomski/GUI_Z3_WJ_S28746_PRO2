@@ -38,17 +38,20 @@ public class ElevatorController {
 
         model.getFloor(floor).setElevatorCalled(true);
         model.getElevator().getTargetFloors().add(floor);
+        model.notifyObservers();
     }
 
 
     public void removePassenger(PassengerModel passenger) {
         model.getElevator().getPassengersInElevator().remove(passenger);
         passenger.setState(ARRIVED);
+        model.notifyObservers();
     }
 
 
     public void selectTargetFloor(int targetFloor) {
         model.getElevator().getTargetFloors().add(targetFloor);
+        model.notifyObservers();
     }
 
 
