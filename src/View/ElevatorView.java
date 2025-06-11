@@ -57,6 +57,11 @@ public class ElevatorView extends JFrame implements Observer {
 
     @Override
     public void update() {
+        for(int i = 0; i < 11; i++){
+            if(!model.getFloor(i).isElevatorCalled()){
+                controlPanel.resetButtonColor(i);
+            }
+        }
         repaint();
     }
 }

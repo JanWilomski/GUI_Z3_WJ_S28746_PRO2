@@ -30,6 +30,7 @@ public class ElevatorController {
     public void startSimulation() {
         model.setSimulationRunning(true);
         simulationController.startSimulation();
+        System.out.println("Simulation started");
 
 
 
