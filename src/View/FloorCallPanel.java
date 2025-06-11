@@ -10,9 +10,9 @@ import java.awt.*;
 public class FloorCallPanel extends JPanel {
 
     ElevatorController controller;
-    JButton[] callButtons = new JButton[11];
-    JLabel[] upArrows = new JLabel[11];
-    JLabel[] downArrows = new JLabel[11];
+    public JButton[] callButtons = new JButton[11];
+    public JLabel[] upArrows = new JLabel[11];
+    public JLabel[] downArrows = new JLabel[11];
 
 
     public FloorCallPanel(ElevatorController controller) {
@@ -53,5 +53,10 @@ public class FloorCallPanel extends JPanel {
             upArrows[floor].setForeground(Color.BLACK);
             downArrows[floor].setForeground(Color.RED);
         }
+    }
+
+
+    public void enableCallButton(int floor){
+        callButtons[floor].setEnabled(true);
     }
 }

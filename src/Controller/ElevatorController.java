@@ -31,6 +31,7 @@ public class ElevatorController {
         model.setSimulationRunning(true);
         simulationController.startSimulation();
         System.out.println("Simulation started");
+        view.disableStartButton();
 
 
 

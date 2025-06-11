@@ -40,7 +40,7 @@ public class SimulationModel implements Observable {
 
     public void setSimulationRunning(boolean simulationRunning) {
         this.simulationRunning = simulationRunning;
-        notifyObservers();
+        //notifyObservers();
     }
 
     @Override

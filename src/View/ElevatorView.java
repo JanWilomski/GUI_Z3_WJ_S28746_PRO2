@@ -55,12 +55,20 @@ public class ElevatorView extends JFrame implements Observer {
 
     }
 
+
+    public void disableStartButton(){
+        ((JButton)getContentPane().getComponent(1)).setEnabled(false);
+    }
+
+
+
+
     @Override
     public void update() {
         for(int i = 0; i < 11; i++){
             if(!model.getFloor(i).isElevatorCalled()){
                 controlPanel.resetButtonColor(i);
-                floorCallPanel.callButtons[i].setEnabled(true);
+                floorCallPanel.enableCallButton(i);
 
             }else floorCallPanel.lightUpDirectionArrows(i, model.getElevator().getDirection());
 
