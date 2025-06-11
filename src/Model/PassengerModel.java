@@ -1,7 +1,7 @@
 package Model;
 
 public class PassengerModel {
-    private enum State {
+    public enum State {
         WAITING,
         RIDING,
         ARRIVED;
@@ -10,5 +10,16 @@ public class PassengerModel {
 
     public PassengerModel() {
         state = State.WAITING;
+    }
+
+
+    //Getters
+    public State getState() {
+        return state;
+    }
+
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

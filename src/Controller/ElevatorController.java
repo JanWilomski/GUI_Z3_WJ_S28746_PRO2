@@ -1,0 +1,58 @@
+package Controller;
+
+import Model.ElevatorModel;
+import Model.PassengerModel;
+import Model.SimulationModel;
+import View.ElevatorView;
+
+import java.util.List;
+import java.util.Set;
+
+import static Model.PassengerModel.State.*;
+
+
+public class ElevatorController {
+    private SimulationModel model;
+    private SimulationController simulationController;
+    private ElevatorView view;
+
+    public ElevatorController() {
+        model = new SimulationModel();
+        simulationController = new SimulationController(model,this);
+        view = new ElevatorView();
+
+    }
+
+
+
+    // Metody obsługi zdarzeń od użytkownika
+    public void startSimulation() {
+        model.setSimulationRunning(true);
+        simulationController.startSimulation();
+
+
+
+    }
+
+    public void callElevator(int floor) {
+
+        model.getFloor(floor).setElevatorCalled(true);
+        model.getElevator().getTargetFloors().add(floor);
+    }
+
+
+    public void removePassenger(PassengerModel passenger) {
+        model.getElevator().getPassengersInElevator().remove(passenger);
+        passenger.setState(ARRIVED);
+    }
+
+
+    public void selectTargetFloor(int targetFloor) {
+        model.getElevator().getTargetFloors().add(targetFloor);
+    }
+
+
+
+
+
+}
