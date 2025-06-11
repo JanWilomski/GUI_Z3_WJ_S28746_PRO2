@@ -73,6 +73,7 @@ public class SimulationController {
             targets.remove(nextTargetFloor);
             model.getFloor(nextTargetFloor).setElevatorCalled(false);
         }
+        model.notifyObservers();
     }
 
     private int findNextTargetFloor(int currentFloor, Set<Integer> targets) {
@@ -84,7 +85,7 @@ public class SimulationController {
             model.getElevator().setDirection(model.getElevator().getDirection().equals(ElevatorModel.Direction.UP) ? ElevatorModel.Direction.DOWN : ElevatorModel.Direction.UP);
             targetFloor = findTargetInDirection(currentFloor, targets, model.getElevator().getDirection());
         }
-
+        model.notifyObservers();
         return targetFloor;
     }
     private int findTargetInDirection(int currentFloor, Set<Integer> targets, ElevatorModel.Direction direction){
@@ -102,7 +103,9 @@ public class SimulationController {
                 }
             }
         }
+        model.notifyObservers();
         return closestTarget;
+
 
     }
 
@@ -112,6 +115,7 @@ public class SimulationController {
         if(model.getFloor(currentFloor).isElevatorCalled()){
             handleEnteringPassengers(currentFloor);
         }
+        model.notifyObservers();
     }
 
     private void handleEnteringPassengers(int currentFloor) {
@@ -128,5 +132,6 @@ public class SimulationController {
             passenger.setState(PassengerModel.State.RIDING);
             elevatorPassengers.add(passenger);
         }
+        model.notifyObservers();
     }
 }
