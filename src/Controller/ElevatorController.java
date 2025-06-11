@@ -52,6 +52,7 @@ public class ElevatorController {
 
 
     public void selectTargetFloor(int targetFloor) {
+
         model.getElevator().getTargetFloors().add(targetFloor);
         model.getFloor(targetFloor).setElevatorCalled(true);
         model.notifyObservers();
