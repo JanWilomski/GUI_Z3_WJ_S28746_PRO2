@@ -25,7 +25,7 @@ public class ElevatorView extends JFrame implements Observer {
         this.model = model;
 
         controlPanel = new ControlPanel(controller);
-        floorCallPanel = new FloorCallPanel();
+        floorCallPanel = new FloorCallPanel(controller);
         buildingPanel = new BuildingPanel();
 
 
@@ -60,7 +60,9 @@ public class ElevatorView extends JFrame implements Observer {
         for(int i = 0; i < 11; i++){
             if(!model.getFloor(i).isElevatorCalled()){
                 controlPanel.resetButtonColor(i);
+                floorCallPanel.lightUpDirectionArrows(i, model.getElevator().getDirection());
             }
+
         }
         repaint();
     }
