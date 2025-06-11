@@ -1,4 +1,6 @@
 package View;
 
-public class FloorCallPanel {
+import javax.swing.*;
+
+public class FloorCallPanel extends JPanel {
 }

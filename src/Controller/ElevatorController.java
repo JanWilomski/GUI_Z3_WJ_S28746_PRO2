@@ -19,7 +19,7 @@ public class ElevatorController {
     public ElevatorController() {
         model = new SimulationModel();
         simulationController = new SimulationController(model,this);
-        view = new ElevatorView();
+        view = new ElevatorView(this, model);
         model.addObserver(view);
 
     }
@@ -52,7 +52,13 @@ public class ElevatorController {
 
     public void selectTargetFloor(int targetFloor) {
         model.getElevator().getTargetFloors().add(targetFloor);
+        model.getFloor(targetFloor).setElevatorCalled(true);
         model.notifyObservers();
+    }
+
+
+    public SimulationModel getModel() {
+        return model;
     }
 
 
