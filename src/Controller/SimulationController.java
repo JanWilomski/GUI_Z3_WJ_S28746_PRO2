@@ -115,7 +115,7 @@ public class SimulationController {
         if(model.getFloor(currentFloor).isElevatorCalled()){
             handleEnteringPassengers(currentFloor);
         }
-        model.notifyObservers();
+
     }
 
     private void handleEnteringPassengers(int currentFloor) {

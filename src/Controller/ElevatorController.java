@@ -20,6 +20,7 @@ public class ElevatorController {
         model = new SimulationModel();
         simulationController = new SimulationController(model,this);
         view = new ElevatorView();
+        model.addObserver(view);
 
     }
 
