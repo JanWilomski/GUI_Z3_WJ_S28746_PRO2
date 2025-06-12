@@ -12,11 +12,18 @@ public class SimulationController {
     private Timer simulationTimer;
     private static final int TIMER_DELAY = 100; // 100ms
     private ElevatorController elevatorController;
+    private boolean isElevatorRunning = true;
+    private long stopTime = 0;
+
+    private boolean stopSimulationConditions = false;
+    private int endSimulationDelay = 10000;
+    private long stopTimeSimulation = 0;
 
     public SimulationController(SimulationModel model, ElevatorController elevatorController) {
         this.model = model;
         initializeTimer();
         this.elevatorController=elevatorController;
+        stopTime=System.currentTimeMillis();
     }
 
     private void initializeTimer() {
@@ -24,10 +31,14 @@ public class SimulationController {
     }
 
     private void updateSimulation() {
-        updatePassengers();
-        moveElevator();
+        if(!isElevatorRunning&&System.currentTimeMillis() - stopTime > 5000) {
+            isElevatorRunning = true;
+        }
+            updatePassengers();
+        if(isElevatorRunning) moveElevator();
         checkSimulationEnd();
         System.out.println(elevatorController.getModel().getElevator().getCurrentFloor());
+
 
     }
 
@@ -40,6 +51,8 @@ public class SimulationController {
 
     public void stopSimulation() {
         simulationTimer.stop();
+        model.setSimulationRunning(false);
+        System.out.println("Symulacja zatrzymana");
     }
 
 
@@ -48,6 +61,20 @@ public class SimulationController {
 
 
     private void checkSimulationEnd(){
+
+        boolean threeConditions = !isElevatorRunning&&model.getElevator().getPassengersInElevator().isEmpty()&&model.getElevator().getTargetFloors().isEmpty();
+        if(threeConditions&&!stopSimulationConditions){
+            stopSimulationConditions=true;
+            stopTimeSimulation=System.currentTimeMillis();
+        }
+
+        if(threeConditions&&!stopSimulationConditions){
+            stopSimulationConditions=true;
+        }
+
+        if(stopSimulationConditions&&System.currentTimeMillis()-stopTimeSimulation>endSimulationDelay){
+            stopSimulation();
+        }
 
     }
 
@@ -71,10 +98,11 @@ public class SimulationController {
 
         currentFloor = model.getElevator().getCurrentFloor();
         if(currentFloor == nextTargetFloor){
+            isElevatorRunning=false;
+            stopTime=System.currentTimeMillis();
             targets.remove(nextTargetFloor);
             model.getFloor(nextTargetFloor).setElevatorCalled(false);
 
-            // Pasażerowie wsiadają NATYCHMIAST po dotarciu:
             handleEnteringPassengers(currentFloor);
         }
         model.notifyObservers();
