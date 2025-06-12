@@ -48,6 +48,9 @@ public class ElevatorController {
     public void removePassenger(PassengerModel passenger) {
         model.getElevator().getPassengersInElevator().remove(passenger);
         passenger.setState(ARRIVED);
+
+        simulationController.handleEnteringPassengers(model.getElevator().getCurrentFloor());
+
         model.notifyObservers();
     }
 

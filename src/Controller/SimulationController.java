@@ -24,8 +24,8 @@ public class SimulationController {
     }
 
     private void updateSimulation() {
-        moveElevator();
         updatePassengers();
+        moveElevator();
         checkSimulationEnd();
         System.out.println(elevatorController.getModel().getElevator().getCurrentFloor());
 
@@ -69,10 +69,13 @@ public class SimulationController {
             model.getElevator().setCurrentFloor(currentFloor - 1);
         }
 
-        currentFloor=model.getElevator().getCurrentFloor();
+        currentFloor = model.getElevator().getCurrentFloor();
         if(currentFloor == nextTargetFloor){
             targets.remove(nextTargetFloor);
             model.getFloor(nextTargetFloor).setElevatorCalled(false);
+
+            // Pasażerowie wsiadają NATYCHMIAST po dotarciu:
+            handleEnteringPassengers(currentFloor);
         }
         model.notifyObservers();
     }
@@ -119,7 +122,7 @@ public class SimulationController {
 
     }
 
-    private void handleEnteringPassengers(int currentFloor) {
+    public void handleEnteringPassengers(int currentFloor) {
         List<PassengerModel> waitingPassengers = model.getFloor(currentFloor).getPassengers();
         List<PassengerModel> elevatorPassengers = model.getElevator().getPassengersInElevator();
 
