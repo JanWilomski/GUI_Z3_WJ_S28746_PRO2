@@ -26,7 +26,7 @@ public class ElevatorView extends JFrame implements Observer {
 
         controlPanel = new ControlPanel(controller);
         floorCallPanel = new FloorCallPanel(controller);
-        buildingPanel = new BuildingPanel();
+        buildingPanel = new BuildingPanel(controller);
 
 
         setLayout(new BorderLayout());

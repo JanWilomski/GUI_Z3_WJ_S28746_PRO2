@@ -15,6 +15,7 @@ public class ElevatorModel {
     private List<PassengerModel> passengersInElevator;
     private Set<Integer> targetFloors;
     public int currentTargetFloor;
+    private float currentPosition;
 
     public ElevatorModel() {
         currentFloor = 0;
@@ -29,7 +30,7 @@ public class ElevatorModel {
 
     //Getters
     public int getCurrentFloor() {
-        return currentFloor;
+        return (int) Math.round(currentPosition);
     }
 
     public Direction getDirection() {

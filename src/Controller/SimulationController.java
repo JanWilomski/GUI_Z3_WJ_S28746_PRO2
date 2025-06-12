@@ -10,7 +10,7 @@ import java.util.Set;
 public class SimulationController {
     private SimulationModel model;
     private Timer simulationTimer;
-    private static final int TIMER_DELAY = 100; // 100ms
+    private static final int TIMER_DELAY = 1000; // 100ms
     private ElevatorController elevatorController;
 
     public SimulationController(SimulationModel model, ElevatorController elevatorController) {
