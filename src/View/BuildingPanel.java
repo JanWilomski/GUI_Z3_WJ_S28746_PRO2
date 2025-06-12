@@ -40,11 +40,21 @@ public class BuildingPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //handleMouseClick(e.getX(), e.getY());
+                handleMouseClick(e.getX(), e.getY());
             }
         });
 
 
+    }
+
+    private void handleMouseClick(int x, int y) {
+
+        for (PassengerView passenger : passengers) {
+            if (passenger.contains(x, y)) {
+                passenger.onClick();
+                break;
+            }
+        }
     }
 
     private void updateAnimation() {
@@ -125,6 +135,25 @@ public class BuildingPanel extends JPanel {
         }
     }
 
+    private void addRidingPassengers() {
+        List<PassengerModel> ridingPassengers = controller.getModel().getElevator().getPassengersInElevator();
+
+        // Pozycja windy:
+        int elevatorX = shaftX + 5;
+        int elevatorY = (int)((10 - smoothPosition) * floorHeight + 5);
+
+        // Rozmieść pasażerów w linii w windzie:
+        for (int i = 0; i < ridingPassengers.size(); i++) {
+            PassengerModel passenger = ridingPassengers.get(i);
+
+            int passengerX = elevatorX + 10 + (i * 15); // W windzie, mniejszy odstęp
+            int passengerY = elevatorY + elevatorHeight / 2; // Środek windy
+
+            PassengerView view = new PassengerView(passenger, controller, passengerX, passengerY);
+            passengers.add(view);
+        }
+    }
+
     private void drawPassengers(Graphics g) {
         for (PassengerView passenger : passengers) {
             passenger.draw(g);
@@ -138,7 +167,10 @@ public class BuildingPanel extends JPanel {
         super.paintComponent(g);
 
         calculateDimensions();
+
+        passengers.clear();
         addWaitingPassengers();
+        addRidingPassengers();
 
 
         drawShaft(g);
