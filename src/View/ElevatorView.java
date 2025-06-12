@@ -85,4 +85,8 @@ public class ElevatorView extends JFrame implements Observer {
         }
         repaint();
     }
+
+    public void enableStartButton() {
+        ((JButton)getContentPane().getComponent(1)).setEnabled(true);
+    }
 }

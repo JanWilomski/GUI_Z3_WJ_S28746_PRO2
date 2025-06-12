@@ -68,12 +68,13 @@ public class SimulationController {
             stopTimeSimulation=System.currentTimeMillis();
         }
 
-        if(threeConditions&&!stopSimulationConditions){
-            stopSimulationConditions=true;
+        if(!threeConditions&&stopSimulationConditions){
+            stopSimulationConditions=false;
         }
 
         if(stopSimulationConditions&&System.currentTimeMillis()-stopTimeSimulation>endSimulationDelay){
             stopSimulation();
+            elevatorController.endSimulation();
         }
 
     }

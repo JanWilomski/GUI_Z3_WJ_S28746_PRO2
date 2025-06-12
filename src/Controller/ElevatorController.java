@@ -68,6 +68,10 @@ public class ElevatorController {
     }
 
 
+    public void endSimulation() {
+        view.enableStartButton();
+    }
+
 
 
 
