@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ElevatorController;
+import Model.PassengerModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ public class BuildingPanel extends JPanel {
     private Timer animationTimer;
 
     private static final int ANIMATION_DELAY = 16;
-    private static final float ANIMATION_SPEED = 0.05f;
+
 
 
     public BuildingPanel(ElevatorController controller) {
@@ -36,17 +37,25 @@ public class BuildingPanel extends JPanel {
         animationTimer.start();
 
 
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //handleMouseClick(e.getX(), e.getY());
+            }
+        });
+
+
     }
 
     private void updateAnimation() {
         float targetPosition = controller.getModel().getElevator().getCurrentPosition();
 
-        // Płynny ruch w czasie 100ms (czas jednego kroku windy):
-        float timeDelta = ANIMATION_DELAY / 100.0f; // 16ms / 100ms = 0.16
+
+        float timeDelta = ANIMATION_DELAY / 50.0f;
 
         if (Math.abs(smoothPosition - targetPosition) > 0.01f) {
             if (smoothPosition < targetPosition) {
-                smoothPosition += timeDelta; // Dokładnie 100ms na piętro
+                smoothPosition += timeDelta;
                 if (smoothPosition > targetPosition) smoothPosition = targetPosition;
             } else {
                 smoothPosition -= timeDelta;
@@ -96,17 +105,47 @@ public class BuildingPanel extends JPanel {
     }
 
 
+    private void addWaitingPassengers() {
+        for (int floor = 0; floor <= 10; floor++) {
+            List<PassengerModel> waitingOnFloor = controller.getModel().getFloor(floor).getPassengers();
+
+            int baseX = shaftX + shaftWidth + 20;
+            int baseY = (10 - floor) * floorHeight + (floorHeight / 2);
+
+
+            for (int i = 0; i < waitingOnFloor.size(); i++) {
+                PassengerModel passenger = waitingOnFloor.get(i);
+
+                int passengerX = baseX + (i * 30);
+                int passengerY = baseY;
+
+                PassengerView view = new PassengerView(passenger, controller, passengerX, passengerY);
+                passengers.add(view);
+            }
+        }
+    }
+
+    private void drawPassengers(Graphics g) {
+        for (PassengerView passenger : passengers) {
+            passenger.draw(g);
+        }
+    }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         calculateDimensions();
+        addWaitingPassengers();
 
 
         drawShaft(g);
         drawFloorLines(g);
         drawElevator(g);
+        drawPassengers(g);
+
 
 
 
