@@ -18,6 +18,7 @@ public class ElevatorModel {
     private float currentPosition;
 
     public ElevatorModel() {
+        currentPosition = 0.0f;
         currentFloor = 0;
         passengersInElevator = new ArrayList<>();
         targetFloors=new HashSet<>();
@@ -42,7 +43,7 @@ public class ElevatorModel {
 
     //Setters
     public void setCurrentFloor(int currentFloor) {
-        this.currentFloor = currentFloor;
+        this.currentPosition =(float) currentFloor;
     }
 
     public void setDirection(Direction direction) {
@@ -51,6 +52,10 @@ public class ElevatorModel {
 
     public Set<Integer> getTargetFloors() {
         return targetFloors;
+    }
+
+    public float getCurrentPosition() {
+        return currentPosition;
     }
 
 }

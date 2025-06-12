@@ -39,17 +39,18 @@ public class BuildingPanel extends JPanel {
     }
 
     private void updateAnimation() {
-        int targetFloor = controller.getModel().getElevator().getCurrentFloor();
-        float target = (float) targetFloor;
+        float targetPosition = controller.getModel().getElevator().getCurrentPosition();
 
+        // Płynny ruch w czasie 100ms (czas jednego kroku windy):
+        float timeDelta = ANIMATION_DELAY / 100.0f; // 16ms / 100ms = 0.16
 
-        if (Math.abs(smoothPosition - target) > 0.01f) {
-            if (smoothPosition < target) {
-                smoothPosition += ANIMATION_SPEED;
-                if (smoothPosition > target) smoothPosition = target;
+        if (Math.abs(smoothPosition - targetPosition) > 0.01f) {
+            if (smoothPosition < targetPosition) {
+                smoothPosition += timeDelta; // Dokładnie 100ms na piętro
+                if (smoothPosition > targetPosition) smoothPosition = targetPosition;
             } else {
-                smoothPosition -= ANIMATION_SPEED;
-                if (smoothPosition < target) smoothPosition = target;
+                smoothPosition -= timeDelta;
+                if (smoothPosition < targetPosition) smoothPosition = targetPosition;
             }
             repaint();
         }
