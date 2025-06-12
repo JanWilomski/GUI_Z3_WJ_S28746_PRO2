@@ -24,6 +24,11 @@ public class PassengerView {
 
 
     public void draw(Graphics g) {
+        if (model.getState() == PassengerModel.State.WAITING) {
+            g.setColor(Color.BLUE);      // Czekający po prawej
+        } else if (model.getState() == PassengerModel.State.RIDING) {
+            g.setColor(Color.GREEN);     // Jadący w windzie
+        }
         g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
     }
 
