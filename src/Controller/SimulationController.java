@@ -27,6 +27,7 @@ public class SimulationController {
         moveElevator();
         updatePassengers();
         checkSimulationEnd();
+        System.out.println(elevatorController.getModel().getElevator().getCurrentFloor());
 
     }
 
@@ -34,7 +35,7 @@ public class SimulationController {
 
 
     public void startSimulation() {
-        //simulationTimer.start();
+        simulationTimer.start();
     }
 
     public void stopSimulation() {

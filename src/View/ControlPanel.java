@@ -25,7 +25,10 @@ public class ControlPanel extends JPanel {
                 controller.selectTargetFloor(Integer.parseInt(((JButton)e.getSource()).getText()));
                 button.setForeground(Color.RED);
             }
+
             );
+
+
 
 
         }

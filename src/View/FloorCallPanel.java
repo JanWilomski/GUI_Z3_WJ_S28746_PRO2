@@ -45,7 +45,7 @@ public class FloorCallPanel extends JPanel {
 
 
 
-    public void lightUpDirectionArrows(int floor, ElevatorModel.Direction direction){
+    public void turnOnDirectionArrow(int floor, ElevatorModel.Direction direction){
         if(direction == ElevatorModel.Direction.UP){
             upArrows[floor].setForeground(Color.RED);
             downArrows[floor].setForeground(Color.BLACK);
@@ -54,6 +54,13 @@ public class FloorCallPanel extends JPanel {
             downArrows[floor].setForeground(Color.RED);
         }
     }
+
+    public void turnOffDirectionArrow(int floor){
+        upArrows[floor].setForeground(Color.BLACK);
+        downArrows[floor].setForeground(Color.BLACK);
+    }
+
+
 
 
     public void enableCallButton(int floor){

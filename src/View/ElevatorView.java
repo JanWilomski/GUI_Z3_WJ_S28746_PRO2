@@ -60,6 +60,14 @@ public class ElevatorView extends JFrame implements Observer {
         ((JButton)getContentPane().getComponent(1)).setEnabled(false);
     }
 
+    public void enableAllButtons(){
+
+        for(int i = 0; i < 11; i++){
+            controlPanel.buttons[i].setEnabled(true);
+        }
+
+    }
+
 
 
 
@@ -69,8 +77,10 @@ public class ElevatorView extends JFrame implements Observer {
             if(!model.getFloor(i).isElevatorCalled()){
                 controlPanel.resetButtonColor(i);
                 floorCallPanel.enableCallButton(i);
+                floorCallPanel.turnOffDirectionArrow(i);
 
-            }else floorCallPanel.lightUpDirectionArrows(i, model.getElevator().getDirection());
+
+            }else floorCallPanel.turnOnDirectionArrow(i, model.getElevator().getDirection());
 
         }
         repaint();
