@@ -12,7 +12,7 @@ public class SimulationController {
     private Timer simulationTimer;
     private static final int TIMER_DELAY = 100; // 100ms
     private ElevatorController elevatorController;
-    private boolean isElevatorRunning = true;
+    private boolean isElevatorRunning = false;
     private long stopTime = 0;
 
     private boolean stopSimulationConditions = false;
@@ -32,7 +32,7 @@ public class SimulationController {
 
     private void updateSimulation() {
         if(!isElevatorRunning&&System.currentTimeMillis() - stopTime > 5000) {
-            isElevatorRunning = true;
+            if(!model.getElevator().getTargetFloors().isEmpty()) isElevatorRunning = true;
         }
             updatePassengers();
         if(isElevatorRunning) moveElevator();
@@ -47,6 +47,8 @@ public class SimulationController {
 
     public void startSimulation() {
         simulationTimer.start();
+        handleEnteringPassengers(0);
+        System.out.println("Symulacja uruchomiona");
     }
 
     public void stopSimulation() {

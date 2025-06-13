@@ -52,6 +52,12 @@ public class ElevatorView extends JFrame implements Observer {
         setVisible(true);
 
 
+        for(int i = 0; i < 11; i++) {
+            floorCallPanel.callButtons[i].setEnabled(false);
+            controlPanel.buttons[i].setEnabled(false);
+        }
+
+
 
     }
 
@@ -88,5 +94,18 @@ public class ElevatorView extends JFrame implements Observer {
 
     public void enableStartButton() {
         ((JButton)getContentPane().getComponent(1)).setEnabled(true);
+    }
+
+    public void updateCallButtonsAvailability() {
+        for(int floor = 0; floor < 11; floor++) {
+            boolean hasPassengers = !model.getFloor(floor).getPassengers().isEmpty();
+            floorCallPanel.callButtons[floor].setEnabled(hasPassengers && !model.getFloor(floor).isElevatorCalled());
+        }
+        boolean hasPassengersInElevator = !model.getElevator().getPassengersInElevator().isEmpty();
+        for(int i = 0; i < 11; i++) {
+            controlPanel.buttons[i].setEnabled(hasPassengersInElevator);
+        }
+
+
     }
 }

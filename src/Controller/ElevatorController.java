@@ -32,6 +32,7 @@ public class ElevatorController {
         simulationController.startSimulation();
         System.out.println("Simulation started");
         view.disableStartButton();
+        view.updateCallButtonsAvailability();
 
 
 
