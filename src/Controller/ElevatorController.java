@@ -26,7 +26,6 @@ public class ElevatorController {
 
 
 
-    // Metody obsługi zdarzeń od użytkownika
     public void startSimulation() {
         model.setSimulationRunning(true);
         simulationController.startSimulation();

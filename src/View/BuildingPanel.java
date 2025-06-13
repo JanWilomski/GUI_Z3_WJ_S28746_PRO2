@@ -138,16 +138,15 @@ public class BuildingPanel extends JPanel {
     private void addRidingPassengers() {
         List<PassengerModel> ridingPassengers = controller.getModel().getElevator().getPassengersInElevator();
 
-        // Pozycja windy:
         int elevatorX = shaftX + 5;
         int elevatorY = (int)((10 - smoothPosition) * floorHeight + 5);
 
-        // Rozmieść pasażerów w linii w windzie:
+
         for (int i = 0; i < ridingPassengers.size(); i++) {
             PassengerModel passenger = ridingPassengers.get(i);
 
-            int passengerX = elevatorX + 10 + (i * 15); // W windzie, mniejszy odstęp
-            int passengerY = elevatorY + elevatorHeight / 2; // Środek windy
+            int passengerX = elevatorX + 10 + (i * 30);
+            int passengerY = elevatorY + elevatorHeight / 2;
 
             PassengerView view = new PassengerView(passenger, controller, passengerX, passengerY);
             passengers.add(view);
