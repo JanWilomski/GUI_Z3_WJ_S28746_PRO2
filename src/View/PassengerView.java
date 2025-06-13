@@ -46,8 +46,4 @@ public class PassengerView {
     }
 
 
-    public void updatePosition(int newX, int newY) {
-        this.x = newX;
-        this.y = newY;
-    }
 }
